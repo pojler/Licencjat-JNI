@@ -1,0 +1,8 @@
+int jint
+boolean jboolean
+byte jbyte
+short jshort
+long jlong
+float jfloat
+double jdouble
+char jchar
