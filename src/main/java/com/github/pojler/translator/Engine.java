@@ -32,14 +32,15 @@ public class Engine {
         int level = 0;
         for (String line : lines) {
             String parsed = parseUnit(line.trim());
-            if (line.contains("}")) {
+            if (line.trim().equals("}")) {
                 level--;
             }
             if(level > 0) {
                 System.out.println(generateIndent(level-1) + parsed);
-                output.add(generateIndent(level-1) + parsed);
+                 output.add(generateIndent(level-1) + parsed);
             }
-            if (line.contains("{")) {
+            int bracket = line.indexOf('{');
+            if (bracket > -1 &&bracket == line.length()-1) {
                 level++;
             }
         }
