@@ -39,7 +39,7 @@ public class CorrelationMatrix {
 
     public static void main(String[] args) {
         CorrelationMatrix c = new CorrelationMatrix();
-        double[] data = {1,2,3,4,5,6,7,8,9,10,11,12};
+        double[] data = {2,1,3,7,1,9,9,8,80,50,70,20};
         int width = 4;
         int height =3;
         double[] result = c.correlationMatrix(data, width, height);
