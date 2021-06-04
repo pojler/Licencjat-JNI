@@ -6,7 +6,7 @@ public class CorrelationMatrix {
         return x + (y * width);
     }
 
-    private double[] correlationMatrix(double[] data, int width, int height){
+    private double[] normalize(double[] data, int width, int height){
         if(data.length != width * height){
             System.out.println("Incorrect data");
             return null;
@@ -36,6 +36,20 @@ public class CorrelationMatrix {
         }
         return result;
     }
+    private double[] correlationMatrix(double[] data, int width, int height){
+        double[] result = new double[height*height];
+        double[] normalizedData = normalize(data, width, height);
+        for(int y = 0; y<height; y++){
+            for(int x =0; x<height; x++){
+                double res = 0;
+                for(int i  = 0; i < width; i++){
+                    res += normalizedData[getIndex(i,y,width)]* normalizedData[getIndex(i,x,width)];
+                }
+                result[getIndex(x,y,height)] = res;
+            }
+        }
+         return result;
+    }
 
     public static void main(String[] args) {
         CorrelationMatrix c = new CorrelationMatrix();
@@ -44,8 +58,8 @@ public class CorrelationMatrix {
         int height =3;
         double[] result = c.correlationMatrix(data, width, height);
         for (int y = 0; y < height; y++){
-            for (int x = 0; x < width; x++){
-                System.out.print(result[c.getIndex(x,y, width)] + " ");
+            for (int x = 0; x < height; x++){
+                System.out.print(result[c.getIndex(x,y, height)] + "\t");
             }
             System.out.println();
         }
