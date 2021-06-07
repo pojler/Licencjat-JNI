@@ -34,7 +34,7 @@ public class Rules {
                 String type = m.group(1);
                 type = type.replaceAll("String", "std::string").replaceAll("boolean", "bool");
                 result.append(type).append(",");
-                int count = 0;
+                int count = 1;
                 for (int i = 0; i < m.group(5).length(); i++) {
                     if(m.group(5).charAt(i) == ','){
                         count++;
@@ -83,7 +83,7 @@ public class Rules {
     });
 
     public static final Rule IF = new Rule ("^if\\(.*$", str -> str);
-    public static final Rule ELSE = new Rule ("^else\\.*$", str -> str);
+    public static final Rule ELSE = new Rule ("^else.*$", str -> str);
     public static final Rule ELSE_IF = new Rule ("^else if\\(.*$", str -> str);
 
 

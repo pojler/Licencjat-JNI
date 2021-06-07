@@ -1,7 +1,7 @@
 package com.github.pojler.comparator.algorithms.Java;
 
 //0(log n)
-public class Fibbonachi {
+public class Fibbonacci {
 
     static int fib(int n)
     {

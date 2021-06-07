@@ -1,13 +1,14 @@
 package com.github.pojler.translator;
 
-import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+
+
+
 public class FileIO {
 
     public List<String> readFile(){
@@ -33,10 +34,10 @@ public class FileIO {
             reader.close();
         }
         catch (FileNotFoundException ex){
-            log.error("File not found");
+            System.err.println("File not found");
         }
         catch (IOException ex){
-            log.error("Error while reading file");
+            System.err.println("Error while reading file");
         }
 
         return lines;
@@ -52,7 +53,7 @@ public class FileIO {
             writer.close();
         }
         catch(IOException ex){
-            log.error("Error while writing to file " + filename);
+            System.err.println("Error while writing to file " + filename);
         }
     }
 }
