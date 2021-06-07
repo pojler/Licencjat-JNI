@@ -72,10 +72,19 @@ public class Rules {
 
     public final static Rule FOR = new Rule("^for.*$", str -> {
         if (str.contains(":")) {
-            return "Foreach";
+            String pattern = "(for\\()([A-Za-z]* )([A-Za-z]*)(:)([A-Za-z]*)\\)";
+            Pattern pat = Pattern.compile(pattern);
+            Matcher m = pat.matcher(str);
+            if(m.find()){
+                return "for(int i = 0; i <" + m.group(5)+".length(); i++) { //you may want to edit inside of this for statement";
+            }
         }
         return str;
     });
+
+    public static final Rule IF = new Rule ("^if\\(.*$", str -> str);
+    public static final Rule ELSE = new Rule ("^else\\.*$", str -> str);
+    public static final Rule ELSE_IF = new Rule ("^else if\\(.*$", str -> str);
 
 
     public final static Rule PRINT = new Rule("^System.out.print\\(.*$", str ->
@@ -91,8 +100,10 @@ public class Rules {
                     .replace(");", " << \"\\n\";")
     );
 
+    public static final Rule EMPTY_LINE = new Rule ("^$", str -> str);
+
     public final static Rule[] getAllRules() {
-        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN};
+        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF};
     }
 
 }
