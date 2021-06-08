@@ -76,7 +76,8 @@ public class Rules {
             Pattern pat = Pattern.compile(pattern);
             Matcher m = pat.matcher(str);
             if(m.find()){
-                return "for(int i = 0; i <" + m.group(5)+".length(); i++) { //you may want to edit inside of this for statement";
+                return "for( auto " + m.group(3) + " = " + m.group(5) + ".begin(); " + m.group(3) + " != " +
+                        m.group(5)+ ".end();" + " ++" + m.group(3) +" ) {";
             }
         }
         return str;
