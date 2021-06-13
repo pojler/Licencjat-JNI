@@ -2,14 +2,55 @@ package com.github.pojler.translator.rules;
 
 import com.github.pojler.translator.Rule;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JniRules {
 
     public final static Rule FUNCTION = new Rule("^((public|private|protected|static|final) )*(void|int|long|double|float|boolean|char|String) .+\\(.*\\).*$", str -> {
-        return str.replaceAll("(public|private|protected|static|final) ", "")
-                .replaceAll("String", "string");
+        String pattern = "((public|private|protected|static|final) *)([A-Za-z]*) ([A-Za-z]*) ([A-Za-z]*)(\\(.*\\))";
+        Pattern pat = Pattern.compile(pattern);
+        Matcher m = pat.matcher(str);
+        StringBuilder sb = new StringBuilder();
+        if(m.find()){
+            int count = m.groupCount();
+            String type = m.group(count-2);
+            if(type.equals("void")){
+                return str;
+            }
+            type.replaceAll("\\[]","Array");
+            type = "j"+type;
+            sb.append("JNIEXPORT ").append(type).append(" JNICALL Java_com_pojler_comparator_alghorithms_JNI_runtime_")
+                    .append(Character.toChars(m.group(count-1).charAt(0)-32))
+                    .append(m.group(count-1).substring(1)).append("_").append(m.group(count-1)).append("\n")
+                    .append("(JNIEnv * env, jobject thisObject");
+            String arguments = m.group(count);
+            arguments = arguments.substring(1, arguments.length()-1);
+            String[] argTab =arguments.split(",");
+            for(int i = 0; i < argTab.length; i++){
+                String[] splittedArg = argTab[i].split(" ");
+                String argType = "j"+splittedArg[0];
+                argType = argType.replaceAll("\\[]","Array");
+                sb.append(", ").append(argType).append(" ").append("j").append(splittedArg[1]);
+            }
+            sb.append("){").append("\n // You may need to convert entry arguments into c++ types");
+
+        }
+        return sb.toString();
+    });
+
+    public final static Rule JNIRETURN = new Rule ("^// JNI return.*$", str ->{
+       StringBuilder sb = new StringBuilder();
+       String[] splitted = str.split(" ");
+       if(splitted[3].contains("Array")){
+           sb.append(splitted[3]).append(" result = (*env)->New").append(Character.toChars(splitted[3].charAt(1)-32))
+                   .append(splitted[3].substring(2)).append("(env,").append(splitted[5]).append(".size) \n(*env)->Set").
+                   append(Character.toChars(splitted[3].charAt(1)-32))
+                   .append(splitted[3].substring(2)).append("Region(env, result, 0, ").append(splitted[5]).append(".size,")
+                   .append(splitted[5]).append("); \n return result;");
+       }
+       return sb.toString();
     });
 
     public final static Rule VARIABLE = new Rule("^(int|long|double|float|boolean|char|String) .*$", str -> str
@@ -23,6 +64,7 @@ public class JniRules {
     );
 
     public final static Rule ARRAY  = new Rule("^.*\\[\\].*$", str -> {
+
         String pattern = "(.*)(\\[\\]) ([A-Za-z]*)( = )?(.*)";
         StringBuilder result = new StringBuilder();
 
@@ -109,7 +151,7 @@ public class JniRules {
     public static final Rule EMPTY_LINE = new Rule ("^$", str -> str);
 
     public final static Rule[] getAllRules() {
-        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF};
+        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF, JNIRETURN};
     }
 
 }

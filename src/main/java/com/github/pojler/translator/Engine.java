@@ -1,6 +1,7 @@
 package com.github.pojler.translator;
 
 import com.github.pojler.translator.rules.CppRules;
+import com.github.pojler.translator.rules.JniRules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Engine {
     private Rule[] ruleSet;
 
     public Engine(){
-        ruleSet = CppRules.getAllRules();
+        ruleSet = JniRules.getAllRules();
     }
 
     public void readFile() {
