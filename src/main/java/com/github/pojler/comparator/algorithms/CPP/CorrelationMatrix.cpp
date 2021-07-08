@@ -2,10 +2,11 @@
 #include <chrono>
 #include <array>
 #include <math.h>
+#include "datacor.hpp"
 
-const int N = 12;
-const int height = 3;
-const int width = 4;
+const int N = 49;
+const int height = 7;
+const int width = 7;
 const int M = height*height;
 
 int getIndex(int x, int y, int width){
@@ -54,7 +55,7 @@ std::array<double, M> correlationMatrix(std::array<double, N> data){
 }
 
 int main(){
-    std::array<double, N> data = {2,1,3,7,1,9,9,8,80,50,70,20};
+    std::array<double, N> data = arr1;
     std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
     std::array<double, M> arr = correlationMatrix(data);
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();

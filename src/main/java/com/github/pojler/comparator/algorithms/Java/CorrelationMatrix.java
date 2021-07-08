@@ -1,6 +1,16 @@
 package com.github.pojler.comparator.algorithms.Java;
 
+import java.util.Random;
+
 public class CorrelationMatrix {
+
+    private void randomFill(double[] arr){
+        Random r = new Random();
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = r.nextInt(2000000);
+        }
+    }
+
 
     private int getIndex(int x, int y, int width){
         return x + (y * width);
@@ -53,9 +63,14 @@ public class CorrelationMatrix {
 
     public static void main(String[] args) {
         CorrelationMatrix c = new CorrelationMatrix();
-        double[] data = {2,1,3,7,1,9,9,8,80,50,70,20};
-        int width = 4;
-        int height =3;
+//        double[] data = new double[49];
+//        double[] data = new double[484];
+//        double[] data = new double[4900];
+//        double[] data = new double[49729];
+        double[] data = new double[499849];
+        c.randomFill(data);
+        int width = (int)Math.sqrt(data.length);
+        int height = (int)Math.sqrt(data.length);
         long startTime = System.nanoTime();
         double[] result = c.correlationMatrix(data, width, height);
         long elapsed = System.nanoTime() -startTime;

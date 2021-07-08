@@ -29,7 +29,11 @@ public class Eratostenes {
     public static void main(String[] args) {
         Eratostenes eras = new Eratostenes();
         long startTime = System.nanoTime();
-        boolean[] table = eras.eratostenes(1000000000);
+        boolean[] table = eras.eratostenes(50);
+//        boolean[] table = eras.eratostenes(500);
+//        boolean[] table = eras.eratostenes(5000);
+//        boolean[] table = eras.eratostenes(50000);
+//        boolean[] table = eras.eratostenes(500000);
         long elapsed = System.nanoTime() -startTime;
         if(table.length < 10000) {
             for (int i = 0; i < table.length; i++) {

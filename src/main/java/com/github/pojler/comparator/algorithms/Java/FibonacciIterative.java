@@ -14,7 +14,11 @@ public class FibonacciIterative {
     public static void main(String[] args) {
         FibonacciIterative fib = new FibonacciIterative();
         long startTime = System.nanoTime();
-        long n = fib.fib(2000);
+        long n = fib.fib(50);
+//        long n = fib.fib(500);
+//        long n = fib.fib(5000);
+//        long n = fib.fib(50000);
+//        long n = fib.fib(500000);
         long elapsed = System.nanoTime() -startTime;
         System.out.println(n);
         System.out.println("Elapsed: " +elapsed/1e6 +" ms");
