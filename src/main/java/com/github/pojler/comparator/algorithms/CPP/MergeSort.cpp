@@ -65,6 +65,6 @@ int main(){
     for (int i = 0; i < 1000; i++){
             std::cout<<arr[i] << " ";
     }
-    std::cout << "Elapsed time in miliseconds : "<< std::chrono::duration_cast<std::chrono::milliseconds>(end -begin).count()<< " ms";
+    std::cout << "Elapsed time in miliseconds : "<< std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count()<< " ms";
     return 0;
 }

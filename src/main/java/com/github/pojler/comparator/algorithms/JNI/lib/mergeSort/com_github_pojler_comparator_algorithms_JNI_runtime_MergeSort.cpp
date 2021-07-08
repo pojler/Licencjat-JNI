@@ -1,16 +1,16 @@
-#include "com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci.hpp"
+#include "com_github_pojler_comparator_algorithms_JNI_runtime_MergeSort.hpp"
 #include <iostream>
 #include <math.h>
 #include <array>
 
 extern "C"
-void merge(int arr[], int begin, int middle, int end){
+void merge(long arr[], int begin, int middle, int end){
 
     int n1 = middle - begin + 1;
     int n2 = end - middle;
 
-    int Set1[n1];
-    int Set2[n2];
+    long Set1[n1];
+    long Set2[n2];
 
     for(int i = 0; i <n1; ++i){
         Set1[i] = arr[begin+1];
@@ -47,7 +47,7 @@ void merge(int arr[], int begin, int middle, int end){
 
 }
 
-void sort(int arr[], int begin, int end)
+void sort(long arr[], int begin, int end)
 {
     if (begin < end) {
         int m =begin+ (end-begin)/2;
@@ -62,8 +62,8 @@ void sort(int arr[], int begin, int end)
 JNIEXPORT jintArray JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_MergeSort_mergeSort
 (JNIEnv * env, jobject thisObject, jintArray data){
     jboolean j = JNI_FALSE;
-    int* d = env -> GetIntArrayElements(data, &j);
-    d = sort(data, 0, (sizeof(d)/sizeof(d[0]))-1);
+    jint* d = env -> GetIntArrayElements(data, &j);
+    sort(d, 0, (sizeof(d)/sizeof(d[0]))-1);
     jintArray jArray = env-> NewIntArray(sizeof(d)/sizeof(d[0]));
     env -> SetIntArrayRegion(jArray, 0, sizeof(d)/sizeof(d[0]), d);
     return jArray;

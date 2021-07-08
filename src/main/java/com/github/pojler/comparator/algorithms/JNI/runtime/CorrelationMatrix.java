@@ -15,7 +15,7 @@ public class CorrelationMatrix {
         double result[] = correlationMatrix(data, width, height);
         long elapsed = System.nanoTime() -startTime;
         System.out.println();
-        System.out.println("Elapsed: " +elapsed/1e6 +" ms in iterative Fib");
+        System.out.println("Elapsed: " +elapsed/1e6 +" ms");
 
     }
 

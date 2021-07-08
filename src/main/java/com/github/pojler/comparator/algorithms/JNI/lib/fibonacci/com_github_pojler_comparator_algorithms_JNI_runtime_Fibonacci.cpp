@@ -11,9 +11,10 @@ int fib(int n){
     }
     return fib(n-1)+fib(n-2);
 }
-long int fibit(n){
 
-    int[n] tab;
+long int fibit(int n){
+
+    int tab[n];
     tab[0] = 0;
     tab[1] = 1;
 
@@ -23,13 +24,13 @@ long int fibit(n){
     return tab[n-1];
 }
 
-JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Eratostenes_fibonacciIterative
+JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci_fibonacciIterative
 (JNIEnv * env, jobject thisObject, jint n){
     int pos = fibit((int)n);
     return (jint)fibit(n);
 }
 
-JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Eratostenes_fibonacciRecursive
+JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci_fibonacciRecursive
 (JNIEnv * env, jobject thisObject, jint n){
     int pos = fib((int)n);
     return (jint)fib(n);

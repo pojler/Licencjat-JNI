@@ -1,12 +1,12 @@
-#include "com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci.hpp"
+#include "com_github_pojler_comparator_algorithms_JNI_runtime_InsertionSort.hpp"
 #include <iostream>
 #include <math.h>
 #include <array>
 
 extern "C"
-int * array sort(int* arr){
-    int result[] = arr;
-    for(int i = 1; i < N; ++i){
+long * sort(long* arr){
+    long * result = arr;
+    for(int i = 1; i < (sizeof(result)/sizeof(result[0])); ++i){
         int key = result[i];
         int j = i -1;
 
@@ -21,13 +21,13 @@ int * array sort(int* arr){
 }
 
 
-JNIEXPORT jintArray JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Eratostenes_insertionSort
+JNIEXPORT jintArray JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_InsertionSort_insertionSort
 (JNIEnv * env, jobject thisObject, jintArray data){
     jboolean j = JNI_FALSE;
-    int* d = env -> GetIntArrayElements(data, &j);
-    d = sort(data);
+    jint* d = (env -> GetIntArrayElements(data, 0));
+    d = sort(d);
     jintArray jArray = env-> NewIntArray(sizeof(d)/sizeof(d[0]));
-    env -> SetIntArrayRegion(javaArray, 0, sizeof(d)/sizeof(d[0]), d);
-    return javaArray;
+    env -> SetIntArrayRegion(jArray, 0, sizeof(d)/sizeof(d[0]), d);
+    return jArray;
 }
 

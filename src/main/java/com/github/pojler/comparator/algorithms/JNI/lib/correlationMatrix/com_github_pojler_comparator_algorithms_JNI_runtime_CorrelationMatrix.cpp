@@ -1,4 +1,4 @@
-#include "com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci.hpp"
+#include "com_github_pojler_comparator_algorithms_JNI_runtime_CorrelationMatrix.hpp"
 #include <iostream>
 #include <math.h>
 #include <array>
@@ -25,7 +25,7 @@ double* normalize(double* data, int width, int height){
             result[getIndex(x,y, width)] -= avg;
         }
         for(int x = 0; x < width; x++){
-            len += result.[getIndex(x,y, width)] * result[getIndex(x,y, width)];
+            len += result[getIndex(x,y, width)] * result[getIndex(x,y, width)];
         }
         len = sqrt(len);
         for (int x = 0; x < width; x++){
@@ -36,8 +36,8 @@ double* normalize(double* data, int width, int height){
 }
 
 double * correlationMatrix(double* data, int width, int height){
-    double* result = new int(height*height) ;
-    double* normalized = normalize(data);
+    double* result = new double(height*height) ;
+    double* normalized = normalize(data, width, height);
     for(int y = 0; y<height; y++){
         for(int x = 0; x < height; x++){
             double res = 0;
@@ -55,8 +55,8 @@ JNIEXPORT jdoubleArray JNICALL Java_com_github_pojler_comparator_algorithms_JNI_
         jboolean j = JNI_FALSE;
         double* d = env -> GetDoubleArrayElements(data, &j);
         double* result = correlationMatrix(d, (int)width, (int)height);
-        jdoubleArray jArray = env-> NewIntArray((int)width*(int)width);
-        env -> SetIntArrayRegion(jArray, 0, (int)width*(int)width, result);
+        jdoubleArray jArray = env-> NewDoubleArray((int)width*(int)width);
+        env -> SetDoubleArrayRegion(jArray, 0, (int)width*(int)width, result);
         return jArray;
 }
 
