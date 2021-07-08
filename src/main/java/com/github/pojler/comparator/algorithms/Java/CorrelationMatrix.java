@@ -56,13 +56,16 @@ public class CorrelationMatrix {
         double[] data = {2,1,3,7,1,9,9,8,80,50,70,20};
         int width = 4;
         int height =3;
+        long startTime = System.nanoTime();
         double[] result = c.correlationMatrix(data, width, height);
+        long elapsed = System.nanoTime() -startTime;
         for (int y = 0; y < height; y++){
             for (int x = 0; x < height; x++){
                 System.out.print(result[c.getIndex(x,y, height)] + "\t");
             }
             System.out.println();
         }
+        System.out.println("Elapsed: " +elapsed/1e6 +" ms");
     }
 
 }

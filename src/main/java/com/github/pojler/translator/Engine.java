@@ -10,10 +10,12 @@ public class Engine {
 
     private FileIO fileIO = new FileIO();
     private List<String> lines;
-    private Rule[] ruleSet;
+    private Rule[] jniRuleSet;
+    private Rule[] cppRuleSet;
 
     public Engine(){
-        ruleSet = JniRules.getAllRules();
+        jniRuleSet = JniRules.getAllRules();
+        cppRuleSet = CppRules.getAllRules();
     }
 
     public void readFile() {
@@ -29,28 +31,41 @@ public class Engine {
     }
 
     private void parse() {
-        List<String> output = new ArrayList<>();
+        List<String> jniOutput = new ArrayList<>();
+        List<String> cppOutput = new ArrayList<>();
         int level = 0;
         for (String line : lines) {
-            String parsed = parseUnit(line.trim());
+            String jniParsed = parseJniUnit(line.trim());
+            String cppParsed = parseCppUnit(line.trim());
             if (line.trim().equals("}")) {
                 level--;
             }
             if(level > 0) {
-                System.out.println(generateIndent(level-1) + parsed);
-                 output.add(generateIndent(level-1) + parsed);
+                //System.out.println(generateIndent(level-1) + jniParsed);
+                 jniOutput.add(generateIndent(level-1) + jniParsed);
+                 cppOutput.add(generateIndent(level-1) + cppParsed);
             }
             int bracket = line.indexOf('{');
             if (bracket > -1 &&bracket == line.length()-1) {
                 level++;
             }
         }
-        fileIO.writeFile(output, "file1");
+        fileIO.writeFile(jniOutput, "jni");
+        fileIO.writeFile(cppOutput, "c++");
 
     }
 
-    private String parseUnit(String line) {
-        for(Rule rule: ruleSet){
+    private String parseJniUnit(String line) {
+        for(Rule rule: jniRuleSet){
+            if(rule.test(line)){
+                return rule.parse(line);
+            }
+        }
+        return "#ERR#";
+    }
+
+    private String parseCppUnit(String line) {
+        for(Rule rule: cppRuleSet){
             if(rule.test(line)){
                 return rule.parse(line);
             }

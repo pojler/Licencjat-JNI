@@ -1,7 +1,7 @@
 package com.github.pojler.comparator.algorithms.Java;
 
 //0(log n)
-public class Fibbonacci {
+public class FibonacciRecursive {
 
     static int fib(int n)
     {
@@ -13,7 +13,7 @@ public class Fibbonacci {
     public static void main (String args[])
     {
 
-        System.out.println(fib(200));
+        System.out.println(fib(20));
     }
 
 }

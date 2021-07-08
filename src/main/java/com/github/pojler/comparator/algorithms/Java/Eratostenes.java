@@ -3,7 +3,7 @@ package com.github.pojler.comparator.algorithms.Java;
 public class Eratostenes {
 
     boolean[] generateTable(int n){
-        boolean [] table = new boolean[n+1];
+        boolean[] table = new boolean[n+1];
         table[0] = false;
         table[1] = false;
         for (int i = 2; i < n+1; i++   ){

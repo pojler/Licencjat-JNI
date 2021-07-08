@@ -44,7 +44,17 @@ public class FileIO {
     }
 
     public void writeFile(List<String> lines, String filename){
-        File file = new File(System.getProperty("user.dir")+"/outputFiles/"+filename+".cpp");
+        FileDialog fileDialog = new FileDialog(new Frame(), "Save "+filename+" file.", FileDialog.SAVE);
+        fileDialog.setFilenameFilter(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".cpp");
+            }
+        });
+        fileDialog.setFile("Untitled.cpp");
+        fileDialog.setVisible(true);
+        System.out.println("File" + fileDialog.getFile());
+        File file = new File(fileDialog.getDirectory()+fileDialog.getFile());
         try{
             FileWriter writer = new FileWriter(file);
             for(String line : lines){
