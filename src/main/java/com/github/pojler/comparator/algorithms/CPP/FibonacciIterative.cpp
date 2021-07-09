@@ -6,7 +6,7 @@
 #define ITV(start, stop) std::chrono::duration_cast<std::chrono::nanoseconds> (stop - start).count() / 1000000.0
 #define MEASURE(timer) ITV(timer, std::chrono::steady_clock::now())
 
-const int n = 100;
+const int n = 500000;
 long int fib(){
 
     std::array<long int, n> tab;

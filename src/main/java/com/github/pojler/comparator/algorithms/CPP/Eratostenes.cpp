@@ -3,7 +3,12 @@
 #include <math.h>
 #include <array>
 
-const int N = 10000;
+#define START(timer) timer = std::chrono::steady_clock::now()
+#define ITV(start, stop) std::chrono::duration_cast<std::chrono::nanoseconds> (stop - start).count() / 1000000.0
+#define MEASURE(timer) ITV(timer, std::chrono::steady_clock::now())
+
+
+const int N = 50;
 
 std::array<bool, N> generateTable(){
     std::array<bool, N> table;
@@ -29,9 +34,11 @@ std::array<bool, N> eratostenes(){
 }
 
 int main(){
-    std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
+    START(auto code_timer);
+    //std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
     std::array<bool, N> arr = eratostenes();
-    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+    //std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+    auto time = MEASURE(code_timer);
     if(N <=10000){
         for(int i = 0; i<N; i++){
             if(arr.at(i)){
@@ -39,5 +46,5 @@ int main(){
             }
         }
     }
-    std::cout << "Elapsed time in miliseconds : "<< std::chrono::duration_cast<std::chrono::milliseconds>(end -begin).count()<< " ms";
+    std::cout << "Elapsed time in miliseconds : "<< time<< " ms";
 }
