@@ -27,7 +27,7 @@ long int fibit(int n){
 JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci_fibonacciIterative
 (JNIEnv * env, jobject thisObject, jint n){
     int pos = fibit((int)n);
-    return (jint)fibit(n);
+    return (jint)pos;
 }
 
 JNIEXPORT jint JNICALL Java_com_github_pojler_comparator_algorithms_JNI_runtime_Fibonacci_fibonacciRecursive

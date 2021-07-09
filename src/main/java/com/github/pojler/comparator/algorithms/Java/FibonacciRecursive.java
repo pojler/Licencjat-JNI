@@ -14,11 +14,11 @@ public class FibonacciRecursive {
     {
         FibonacciRecursive fib = new FibonacciRecursive();
         long startTime = System.nanoTime();
-        long n = fib.fib(10);
+//        long n = fib.fib(10);
 //        long n = fib.fib(20);
 //        long n = fib.fib(30);
 //        long n = fib.fib(40);
-//        long n = fib.fib(50);
+        long n = fib.fib(50);
         long elapsed = System.nanoTime() -startTime;
         System.out.println(n);
         System.out.println("Elapsed: " +elapsed/1e6 +" ms");

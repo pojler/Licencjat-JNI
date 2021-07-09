@@ -19,11 +19,11 @@ public class Fibonacci {
 //        int fib1result = fibonacciIterative(500000);
         long elapsed = System.nanoTime() -startTime;
         long rec = System.nanoTime();
-        int fib2result = fibonacciRecursive(10);
+//        int fib2result = fibonacciRecursive(10);
 //        int fib2result = fibonacciRecursive(20);
 //        int fib2result = fibonacciRecursive(30);
 //        int fib2result = fibonacciRecursive(40);
-//        int fib2result = fibonacciRecursive(50);
+        int fib2result = fibonacciRecursive(50);
         long elapsedrec = System.nanoTime() -rec;
         System.out.println();
         System.out.println("Elapsed: " +elapsed/1e6 +" ms in iterative Fib");

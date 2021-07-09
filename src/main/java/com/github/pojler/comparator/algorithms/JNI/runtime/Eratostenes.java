@@ -11,11 +11,11 @@ public class Eratostenes {
     public static void main(String[] args) {
 
         long startTime = System.nanoTime();
-        boolean[] table = eratostenes(50);
+//        boolean[] table = eratostenes(50);
 //        boolean[] table = eratostenes(500);
 //        boolean[] table = eratostenes(5000);
 //        boolean[] table = eratostenes(50000);
-//        boolean[] table = eratostenes(500000);
+        boolean[] table = eratostenes(500000);
         long elapsed = System.nanoTime() -startTime;
         if(table.length < 10000) {
             for (int i = 0; i < table.length; i++) {

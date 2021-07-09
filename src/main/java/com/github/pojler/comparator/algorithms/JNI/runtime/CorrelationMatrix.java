@@ -9,7 +9,8 @@ public class CorrelationMatrix {
     private static void randomFill(double[] arr){
         Random r = new Random();
         for(int i = 0; i < arr.length; i++){
-            arr[i] = r.nextInt(2000000);
+            arr[i] = r.nextInt(2000000
+            );
         }
     }
 
@@ -17,10 +18,10 @@ public class CorrelationMatrix {
     native private static double[] correlationMatrix (double[] data, int width, int height);
 
     public static void main(String[] args) {
-        double[] data = new double[49];
+//        double[] data = new double[49];
 //        double[] data = new double[484];
 //        double[] data = new double[4900];
-//        double[] data = new double[49729];
+        double[] data = new double[49729];
 //        double[] data = new double[499849];
         randomFill(data);
         int width = (int)Math.sqrt(data.length);

@@ -72,21 +72,21 @@ class MergeSort
 
     public static void main(String args[])
     {
-        int arr[] = new int[50];
+//        int arr[] = new int[50];
 //        int arr[] = new int[500];
 //        int arr[] = new int[5000];
 //        int arr[] = new int[50000];
-//        int arr[] = new int[500000];
+        int arr[] = new int[500000];
 
          MergeSort ob = new MergeSort();
          ob.randomFill(arr);
         long startTime = System.nanoTime();
         ob.sort(arr, 0, arr.length - 1);
         long elapsed = System.nanoTime() -startTime;
-        for(int i = 0; i< arr.length; i++){
-            System.out.print(arr[i]+ " ");
-        }
-        System.out.println("Elapsed: " +elapsed/1e6 +" ms");
+//        for(int i = 0; i< arr.length; i++){
+//            System.out.print(arr[i]+ " ");
+//        }
+        System.out.println("\nElapsed: " +elapsed/1e6 +" ms");
 
     }
 }

@@ -32,19 +32,20 @@ class InsertionSort {
 
     public static void main(String args[])
     {
-        int arr[] = new int [50];
+//        int arr[] = new int [50];
 //        int arr[] = new int [500];
 //        int arr[] = new int [5000];
 //        int arr[] = new int [50000];
-//        int arr[] = new int [500000];
+        int arr[] = new int [500000];
 
         InsertionSort ob = new InsertionSort();
         ob.randomFill(arr);
         long startTime = System.nanoTime();
         ob.sort(arr);
         long elapsed = System.nanoTime() -startTime;
-        for (int i = 0; i < arr.length; i++)
-            System.out.print(arr[i] + " ");
+//        for (int i = 0; i < arr.length; i++)
+//            System.out.print(arr[i] + " ");
+        System.out.println();
         System.out.println("Elapsed: " +elapsed/1e6 +" ms");
     }
 }

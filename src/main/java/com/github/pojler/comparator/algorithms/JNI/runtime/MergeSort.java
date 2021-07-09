@@ -18,11 +18,11 @@ public class MergeSort {
 
     public static void main(String[] args) {
         // n = 1000
-        int arr[] = new int [50];
+//        int arr[] = new int [50];
 //        int arr[] = new int [500];
 //        int arr[] = new int [5000];
 //        int arr[] = new int [50000];
-//        int arr[] = new int [500000];
+        int arr[] = new int [500000];
         randomFill(arr);
         long startTime = System.nanoTime();
         int sorted[] = mergeSort(arr);
