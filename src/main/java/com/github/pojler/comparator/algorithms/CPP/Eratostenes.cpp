@@ -8,7 +8,7 @@
 #define MEASURE(timer) ITV(timer, std::chrono::steady_clock::now())
 
 
-const int N = 50;
+const int N = 500000;
 
 std::array<bool, N> generateTable(){
     std::array<bool, N> table;

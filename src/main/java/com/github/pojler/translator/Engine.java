@@ -29,30 +29,58 @@ public class Engine {
         }
 
     }
+    private void addIncludes(List<String> outputList){
+        outputList.add("#include<iostream>");
+        outputList.add("#include<chrono>");
+        outputList.add("#include<math.h>");
+        outputList.add("#include <array>");
+        outputList.add("");
+        outputList.add("#define START(timer) timer = std::chrono::steady_clock::now()");
+        outputList.add("#define ITV(start, stop) std::chrono::duration_cast<std::chrono::nanoseconds> (stop - start).count() / 1000000.0");
+        outputList.add("#define MEASURE(timer) ITV(timer, std::chrono::steady_clock::now())");
+    }
 
     private void parse() {
         List<String> jniOutput = new ArrayList<>();
         List<String> cppOutput = new ArrayList<>();
+        addIncludes(jniOutput);
+        addIncludes(cppOutput);
         int level = 0;
         for (String line : lines) {
-            String jniParsed = parseJniUnit(line.trim());
-            String cppParsed = parseCppUnit(line.trim());
-            if (line.trim().equals("}")) {
-                level--;
+            if(!line.equals("public static void main(String[] args) {") || !line.trim().equals("public static void main(String[] args){")) {
+                String jniParsed = parseJniUnit(line.trim());
+                String cppParsed = parseCppUnit(line.trim());
+                if (line.trim().equals("}")) {
+                    level--;
+                }
+                if (level > 0) {
+                    //System.out.println(generateIndent(level-1) + jniParsed);
+                    jniOutput.add(generateIndent(level - 1) + jniParsed);
+                    cppOutput.add(generateIndent(level - 1) + cppParsed);
+                }
+                int bracket = line.indexOf('{');
+                if (bracket > -1 && bracket == line.length() - 1) {
+                    level++;
+                }
             }
-            if(level > 0) {
-                //System.out.println(generateIndent(level-1) + jniParsed);
-                 jniOutput.add(generateIndent(level-1) + jniParsed);
-                 cppOutput.add(generateIndent(level-1) + cppParsed);
-            }
-            int bracket = line.indexOf('{');
-            if (bracket > -1 &&bracket == line.length()-1) {
-                level++;
+            else{
+                addMain(cppOutput);
+                continue;
             }
         }
         fileIO.writeFile(jniOutput, "jni");
         fileIO.writeFile(cppOutput, "c++");
 
+    }
+
+    private void addMain(List<String> output){
+        output.add("int main(){");
+        output.add("    START(auto code_timer);");
+        output.add("    //use wrtitten function here");
+        output.add("    auto time = MEASURE(code_timer);");
+        output.add("    std::cout << \"Elapsed time in miliseconds : \"<< time<< \" ms\";");
+        output.add("    return 0;");
+        output.add("}");
     }
 
     private String parseJniUnit(String line) {

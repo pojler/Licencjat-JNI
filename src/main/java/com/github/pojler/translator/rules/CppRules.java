@@ -42,6 +42,11 @@ public class CppRules implements Rules {
             .replaceAll("String", "std::string")
     );
 
+    public final static Rule MULEQUAL= new Rule("^.*\\*=.*;$", str -> str);
+    public final static Rule SUMEQUAL= new Rule("^.*\\+=.*;$", str -> str);
+    public final static Rule MINEQUAL= new Rule("^.*\\-=.*;$", str -> str);
+
+
     public final static Rule GETARRAYVALUE = new Rule("^.*\\[(([0-9]*)|([a-z]))] = .*$", str -> {
         String p = "(.*)\\[(.*)] = (.*;)";
         Pattern pattern = Pattern.compile(p);
@@ -170,7 +175,7 @@ public class CppRules implements Rules {
 
 
     public final static Rule[] getAllRules() {
-        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF, RETURN, GETARRAYVALUE};
+        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF, RETURN, GETARRAYVALUE, MULEQUAL, SUMEQUAL, MINEQUAL};
     }
 
 }

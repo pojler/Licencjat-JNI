@@ -3,6 +3,10 @@
 #include <chrono>
 #include "datamer.hpp"
 
+#define START(timer) timer = std::chrono::steady_clock::now()
+#define ITV(start, stop) std::chrono::duration_cast<std::chrono::nanoseconds> (stop - start).count() / 1000000.0
+#define MEASURE(timer) ITV(timer, std::chrono::steady_clock::now())
+
 void merge(int arr[], int begin, int middle, int end){
     
     int n1 = middle - begin + 1;
@@ -59,13 +63,15 @@ void sort(int arr[], int begin, int end)
 }
 
 int main(){
-    std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
+    START(auto code_timer);
+        //std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
     sort(arr5,0, 500000-1);
-    std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 1000; i++){
-            std::cout<<arr1[i] << " ";
-    }
+    //std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
+    auto time = MEASURE(code_timer);
+    // for (int i = 0; i < 1000; i++){
+    //         std::cout<<arr1[i] << " ";
+    // }
     std::cout<<std::endl;
-    std::cout << "Elapsed time in miliseconds : "<< std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count()<< " ms";
+    std::cout << "Elapsed time in miliseconds : "<< time<< " ms";
     return 0;
 }

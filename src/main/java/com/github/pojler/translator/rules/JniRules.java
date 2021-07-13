@@ -22,8 +22,7 @@ public class JniRules {
             type.replaceAll("\\[]","Array");
             type = "j"+type;
             sb.append("JNIEXPORT ").append(type).append(" JNICALL Java_com_pojler_comparator_alghorithms_JNI_runtime_")
-                    .append(Character.toChars(m.group(count-1).charAt(0)-32))
-                    .append(m.group(count-1).substring(1)).append("_").append(m.group(count-1)).append("\n")
+                    .append(m.group(count-1)).append("_").append(m.group(count-1)).append("\n")
                     .append("(JNIEnv * env, jobject thisObject");
             String arguments = m.group(count);
             arguments = arguments.substring(1, arguments.length()-1);
