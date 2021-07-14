@@ -172,10 +172,11 @@ public class CppRules implements Rules {
 
     public static final Rule EMPTY_LINE = new Rule ("^$", str -> str);
     public static final Rule RETURN= new Rule ("^return .*$", str -> str);
+    public static final Rule ASSIGNMENT= new Rule (".*=.*", str -> str);
 
 
     public final static Rule[] getAllRules() {
-        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF, RETURN, GETARRAYVALUE, MULEQUAL, SUMEQUAL, MINEQUAL};
+        return new Rule[]{FUNCTION, VARIABLE, ARRAY, CLOSING_BRACKET, FOR, PRINT, PRINTLN, EMPTY_LINE, IF, ELSE, ELSE_IF, RETURN, GETARRAYVALUE, MULEQUAL, SUMEQUAL, MINEQUAL, ASSIGNMENT};
     }
 
 }
